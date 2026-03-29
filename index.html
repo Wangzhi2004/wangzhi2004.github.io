@@ -97,7 +97,6 @@
             height: 200%;
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
             transform: translateX(-100%) rotate(15deg);
-            transition: transform 0.1s;
             pointer-events: none;
             mix-blend-mode: soft-light;
         }
@@ -150,9 +149,75 @@
         html {
             scroll-behavior: smooth;
         }
+        
+        /* 文章详情模态框 */
+        .article-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(245, 245, 240, 0.95);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            overflow-y: auto;
+        }
+        
+        .article-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .article-content {
+            max-width: 2xl;
+            margin: 0 auto;
+            padding: 6rem 2rem 4rem;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+        
+        .article-modal.active .article-content {
+            transform: translateY(0);
+        }
+        
+        .close-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            z-index: 101;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255,255,255,1);
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 <body class="font-serif text-ink antialiased selection:bg-clay selection:text-paper">
+
+    <!-- 文章详情模态框 -->
+    <div id="articleModal" class="article-modal">
+        <div class="close-btn" onclick="closeArticle()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+        <div class="article-content max-w-2xl mx-auto px-6 py-20" id="modalBody">
+            <!-- 内容动态插入 -->
+        </div>
+    </div>
 
     <nav id="navbar" class="liquid-glass-container opacity-0 translate-y-[-20px] transition-all duration-700">
         <div class="liquid-glass-blur"></div>
@@ -162,7 +227,7 @@
         <div class="liquid-glass-shine"></div>
         
         <div class="liquid-glass-content">
-            <div class="font-serif text-lg tracking-widest flex items-center gap-3">
+            <div class="font-serif text-lg tracking-widest flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
                 <span class="text-2xl font-light text-ink/90 drop-shadow-sm">「致」</span>
                 <span class="w-px h-4 bg-ink/20"></span>
                 <span class="text-sm font-sans tracking-[0.2em] uppercase text-ink/50">数字花园</span>
@@ -341,7 +406,8 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     
-                    <article class="group cursor-pointer opacity-0 translate-y-8" id="essay-1">
+                    <!-- 文章1：投资 -->
+                    <article class="group cursor-pointer opacity-0 translate-y-8" id="essay-1" onclick="openArticle('investment')">
                         <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 h-full hover:bg-white/15 transition-all duration-500 hover:border-clay/40 relative overflow-hidden">
                             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-clay to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div class="flex justify-between items-start mb-6">
@@ -351,9 +417,10 @@
                             
                             <h3 class="font-serif text-2xl mb-4 group-hover:text-clay transition-colors leading-tight text-paper/90">关于159695的持仓逻辑：<br>通信ETF的网格策略反思</h3>
                             
-                            <div class="font-serif text-paper/70 leading-relaxed space-y-3 text-sm">
+                            <div class="font-serif text-paper/70 leading-relaxed space-y-3 text-sm line-clamp-3">
                                 <p>昨日以1.720卖出1000股，日内获利9元。这看似微不足道的数字，却是我对"确定性"的一次试探。</p>
-                                <p>在备考知产的间隙，我设置了2.391的买入点，基于对通信板块政策面的判断...</p>
+                                <p>在备考知产的间隙，我设置了2.391的买入点，基于对通信板块政策面的判断。但更重要的是，这次交易让我理解了仓位管理的心理学——当你同时面对代码的确定性和市场的不确定性时，如何保持清醒？</p>
+                                <p>网格策略的本质不是预测，而是纪律。就像写代码时的单元测试，每一笔交易都是对市场假设的验证...</p>
                             </div>
                             
                             <div class="mt-6 pt-6 border-t border-white/20 flex items-center gap-2 text-sm text-paper/50 group-hover:text-clay transition-colors">
@@ -363,7 +430,8 @@
                         </div>
                     </article>
 
-                    <article class="group cursor-pointer opacity-0 translate-y-8" id="essay-2">
+                    <!-- 文章2：技术 -->
+                    <article class="group cursor-pointer opacity-0 translate-y-8" id="essay-2" onclick="openArticle('tech')">
                         <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 h-full hover:bg-white/15 transition-all duration-500 hover:border-digital/40 relative overflow-hidden">
                             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-digital to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                             <div class="flex justify-between items-start mb-6">
@@ -373,8 +441,10 @@
                             
                             <h3 class="font-serif text-2xl mb-4 group-hover:text-digital transition-colors leading-tight text-paper/90">从双向链表到知识产权：<br>技术方案的权利化过程</h3>
                             
-                            <div class="font-serif text-paper/70 leading-relaxed space-y-3 text-sm">
-                                <p>写TimeFlow的专利交底书时，我意识到代码与法律文本之间存在一道翻译的鸿沟...</p>
+                            <div class="font-serif text-paper/70 leading-relaxed space-y-3 text-sm line-clamp-3">
+                                <p>写TimeFlow的专利交底书时，我意识到代码与法律文本之间存在一道翻译的鸿沟。编译器理解指针操作，但审查员需要理解"技术效果"。</p>
+                                <p>我开始理解为什么知产律师需要技术背景——这不是简单的文书工作，而是思维方式的转译。就像将C++代码解释给只读伪代码的人听，你需要保留逻辑的本质，同时改变表述的形式。</p>
+                                <p>在准备审查意见答复的过程中，我发现了自己代码架构中的盲点...</p>
                             </div>
                             
                             <div class="mt-6 pt-6 border-t border-white/20 flex items-center gap-2 text-sm text-paper/50 group-hover:text-digital transition-colors">
@@ -384,7 +454,8 @@
                         </div>
                     </article>
 
-                    <article class="group cursor-pointer opacity-0 translate-y-8 md:col-span-2" id="essay-3">
+                    <!-- 文章3：备考 -->
+                    <article class="group cursor-pointer opacity-0 translate-y-8 md:col-span-2" id="essay-3" onclick="openArticle('study')">
                         <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:border-white/40 flex flex-col md:flex-row gap-8 relative overflow-hidden">
                             <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-clay/20 rounded-full blur-3xl pointer-events-none"></div>
                             <div class="md:w-1/3 relative z-10">
@@ -392,12 +463,18 @@
                                     <span class="text-xs font-sans uppercase tracking-widest text-paper/60">备考笔记</span>
                                     <span class="text-xs font-mono text-paper/40">2026.03.20</span>
                                 </div>
-                                <h3 class="font-serif text-2xl group-hover:text-clay transition-colors leading-tight text-paper/90">跨考知识产权的第47天：<br>民法总论与代码架构的共鸣</h3>
+                                <h3 class="font-serif text-2xl group-hover:text-clay transition-colors leading-tight text-paper/90">跨考知识产权的第47天：<br>民法总论与代码架构的奇妙共鸣</h3>
                             </div>
                             
-                            <div class="md:w-2/3 font-serif text-paper/70 leading-relaxed space-y-3 text-sm border-l border-white/20 md:pl-8 relative z-10">
+                            <div class="md:w-2/3 font-serif text-paper/70 leading-relaxed space-y-3 text-sm md:border-l border-white/20 md:pl-8 relative z-10">
                                 <p>今天在复习民事法律行为效力时，突然联想到TypeScript的类型系统。有效/无效/效力待定的三分法，像极了类型检查中的编译期错误、运行时异常与未定义行为。</p>
+                                <p>这种跨学科的顿悟让我确信，从工商管理到知识产权，再到技术开发，这三者的交汇点正是"系统化的规则设计"。法律是社会的协议，代码是机器的协议，而商业是两者的连接层。</p>
                                 <p class="text-paper/40 italic text-xs mt-4 font-sans">写于图书馆三楼 · 窗外夕阳正好</p>
+                            </div>
+                            
+                            <div class="md:hidden mt-4 pt-4 border-t border-white/20 flex items-center gap-2 text-sm text-paper/50">
+                                <span>阅读全文</span>
+                                <span>→</span>
                             </div>
                         </div>
                     </article>
@@ -467,6 +544,127 @@
     </main>
 
     <script>
+        // 文章内容数据
+        const articles = {
+            investment: {
+                title: "关于159695的持仓逻辑：通信ETF的网格策略反思",
+                date: "2026.03.28",
+                category: "投资随笔",
+                content: `
+                    <p class="text-xl leading-relaxed mb-6 text-ink/80">昨日以1.720卖出1000股，日内获利9元。这看似微不足道的数字，却是我对"确定性"的一次试探。</p>
+                    
+                    <p class="mb-4">在备考知产的间隙，我设置了2.391的买入点，基于对通信板块政策面的判断。但更重要的是，这次交易让我理解了仓位管理的心理学——当你同时面对代码的确定性和市场的不确定性时，如何保持清醒？</p>
+                    
+                    <p class="mb-4">网格策略的本质不是预测，而是纪律。就像写代码时的单元测试，每一笔交易都是对市场假设的验证。我设置了±2%的网格间距，这意味着我接受了"无法预测方向，但可以管理波动"的前提。</p>
+                    
+                    <p class="mb-4">159695是嘉实中证全指通信设备ETF，重仓股包括中兴、烽火等。选择它而非个股，是因为在备考期间我无法深入研究单个公司的财报，但整个通信行业的政策趋势是明确的——5G建设、东数西算、新基建。</p>
+                    
+                    <p class="italic text-ink/60 border-l-4 border-clay/30 pl-4 my-8">"投资中最难的不是技术分析，而是在持仓时保持内心的平静，就像在Debug时保持耐心一样。"</p>
+                    
+                    <p class="mb-4">这次日内T+0的9元盈利，扣除手续费后实际盈利约6元。钱很少，但我验证了交易系统的可行性：基于微信提醒+手工下单的半自动网格，在图书馆复习的间隙也能操作。</p>
+                    
+                    <p>下一步考虑接入自动化交易API，但前提是先通过专利代理师考试。毕竟，知产才是未来的主业，投资只是现金管理工具。</p>
+                `,
+                color: "clay"
+            },
+            tech: {
+                title: "从双向链表到知识产权：技术方案的权利化过程",
+                date: "2026.03.25",
+                category: "技术随想",
+                content: `
+                    <p class="text-xl leading-relaxed mb-6 text-ink/80">写TimeFlow的专利交底书时，我意识到代码与法律文本之间存在一道翻译的鸿沟。编译器理解指针操作，但审查员需要理解"技术效果"。</p>
+                    
+                    <p class="mb-4">我开始理解为什么知产律师需要技术背景——这不是简单的文书工作，而是思维方式的转译。就像将C++代码解释给只读伪代码的人听，你需要保留逻辑的本质，同时改变表述的形式。</p>
+                    
+                    <p class="mb-4">TimeFlow的核心创新是"基于双向链表的时间轴非线性管理"，这在代码里只是一段简单的结构体定义：</p>
+                    
+                    <pre class="bg-ink/5 p-4 rounded-lg my-6 text-sm font-mono overflow-x-auto"><code>struct PhotoNode {
+    string photoId;
+    PhotoNode* prev;
+    PhotoNode* next;
+    Timestamp captureTime;
+};</code></pre>
+                    
+                    <p class="mb-4">但在专利权利要求书里，这段话变成了："一种基于双向链表数据结构的照片管理方法，其特征在于，通过前驱指针与后继指针建立照片文件的时间关联，实现O(1)时间复杂度的时间跳转..."</p>
+                    
+                    <p class="mb-4">这种转译让我重新审视自己的代码。为了证明"创造性"，我查阅了二十余篇对比文件，发现现有的照片管理都是基于文件系统的树形结构（文件夹-子文件夹），没有人用链表来组织时间线。</p>
+                    
+                    <p class="italic text-ink/60 border-l-4 border-digital/30 pl-4 my-8">"专利写作反过来优化了我的代码架构。为了让审查员理解，我必须把耦合的模块拆得更清晰，这让代码质量反而提升了。"</p>
+                    
+                    <p>目前正在准备答复审查意见。审查员质疑的是"技术效果是否显而易见"。我准备用性能测试数据说话：10万张照片的加载速度，TimeFlow比传统文件夹管理方式快了多少毫秒。数据，是技术人员最好的法律语言。</p>
+                `,
+                color: "digital"
+            },
+            study: {
+                title: "跨考知识产权的第47天：民法总论与代码架构的奇妙共鸣",
+                date: "2026.03.20",
+                category: "备考笔记",
+                content: `
+                    <p class="text-xl leading-relaxed mb-6 text-ink/80">今天在复习民事法律行为效力时，突然联想到TypeScript的类型系统。有效/无效/效力待定的三分法，像极了类型检查中的编译期错误、运行时异常与未定义行为。</p>
+                    
+                    <p class="mb-4">这种跨学科的顿悟让我确信，从工商管理到知识产权，再到技术开发，这三者的交汇点正是"系统化的规则设计"。法律是社会的协议，代码是机器的协议，而商业是两者的连接层。</p>
+                    
+                    <p class="mb-4">举个例子：民法中的"意思表示真实"对应代码中的"变量声明与实际赋值一致"；合同法中的"显失公平"类似于算法中的"时间复杂度劣化"。当我在《民法典》第147条看到"基于重大误解实施的民事法律行为，行为人有权请求撤销"时，我想到的是Git的revert操作——允许你撤销错误的commit，但会留下历史记录。</p>
+                    
+                    <p class="mb-4">备考方法也在向我的工程思维靠拢。我用Anki制作了300张卡片，基于艾宾浩斯遗忘曲线安排复习。就像优化数据库查询一样，我在优化大脑的内存访问效率。</p>
+                    
+                    <div class="bg-clay/5 p-6 rounded-xl my-8 border-l-4 border-clay/30">
+                        <p class="italic text-ink/70 mb-2">"图书馆三楼，下午五点半。夕阳从西侧窗户照进来，刚好打在《知识产权法教程》的第247页。我抬头看了一眼窗外的梧桐树，突然觉得跨考这个决定，就像当年决定写TimeFlow一样，都是在不确定中寻找确定性的尝试。"</p>
+                        <p class="text-sm text-ink/40 text-right">—— 写于2026年3月20日</p>
+                    </div>
+                    
+                    <p class="mb-4">目前进度：民法总论完成70%，计划下周开始知识产权法。同时保持每天2小时的代码时间，维护Lexiscape的开发。时间分配像CPU调度一样，需要优先级队列和防饿死机制。</p>
+                    
+                    <p>目标院校是中南财经政法大学，知产专业硕士。距离考试还有280天，道阻且长，行则将至。</p>
+                `,
+                color: "clay"
+            }
+        };
+
+        // 打开文章
+        function openArticle(id) {
+            const article = articles[id];
+            if (!article) return;
+            
+            const modal = document.getElementById('articleModal');
+            const body = document.getElementById('modalBody');
+            
+            body.innerHTML = `
+                <div class="mb-8">
+                    <span class="text-${article.color} font-sans text-sm uppercase tracking-widest">${article.category}</span>
+                    <h1 class="font-serif text-3xl md:text-4xl mt-4 mb-4 leading-tight text-ink/90">${article.title}</h1>
+                    <p class="text-ink/40 font-mono text-sm">${article.date}</p>
+                </div>
+                <div class="prose prose-lg font-serif text-ink/80 leading-loose">
+                    ${article.content}
+                </div>
+                <div class="mt-16 pt-8 border-t border-ink/10 flex justify-between items-center">
+                    <button onclick="closeArticle()" class="px-6 py-2 rounded-full border border-ink/20 hover:bg-ink/5 transition-colors text-sm font-sans">← 返回花园</button>
+                    <span class="text-ink/30 text-sm font-serif">「致」的数字花园</span>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭文章
+        function closeArticle() {
+            const modal = document.getElementById('articleModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeArticle();
+        });
+
+        // 点击模态框外部关闭
+        document.getElementById('articleModal').addEventListener('click', (e) => {
+            if (e.target.id === 'articleModal') closeArticle();
+        });
+
         gsap.registerPlugin(ScrollTrigger);
 
         window.addEventListener('load', () => {
@@ -491,7 +689,7 @@
                 delay: 1.5
             });
 
-            // 关键修复：让整个首屏（包括光晕）一起退出，而不仅是内容
+            // 关键修复：让整个首屏可以双向动画（上去消失，回来出现）
             gsap.to('#hero', {
                 scrollTrigger: {
                     trigger: "body",
@@ -503,12 +701,9 @@
                 filter: "blur(10px)",
                 scale: 0.95,
                 ease: "power2.inOut",
-                transformOrigin: "center center",
-                onComplete: () => {
-                    // 动画完成后彻底隐藏，防止遮挡
-                    document.getElementById('hero').style.visibility = 'hidden';
-                }
+                transformOrigin: "center center"
             });
+            // 注意：移除了 onComplete 中的 visibility: hidden，这样回来时还能看见
 
             // 导航栏显示
             ScrollTrigger.create({
