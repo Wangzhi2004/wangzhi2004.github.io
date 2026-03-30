@@ -56,8 +56,7 @@
             inset: -20px;
             background: rgba(245, 245, 240, 0.4);
             backdrop-filter: blur(60px) saturate(200%) brightness(1.1);
-            -webkit-backdrop-filter: blur(60px) saturate(200%) brightness(1.1);
-            mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+            -webkit-backdrop-filter: blur(60px) saturate(2: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
         }
 
@@ -102,7 +101,8 @@
             mix-blend-mode: soft-light;
         }
 
-        .liquid-glass-container:hover .liquid-glass-shine {
+00%) brightness(1.1);
+            mask-image        .liquid-glass-container:hover .liquid-glass-shine {
             animation: shine 2s ease-in-out;
         }
 
@@ -124,7 +124,7 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(20px) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255,             position: absolute255, 0.8);
             box-shadow: 0 4px 24px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9);
         }
 
@@ -139,7 +139,11 @@
         }
 
         .code-window {
-            background: rgba(26, 26, 26, 0.95);
+            background: rgba(26, 26 1;
+            visibility: visible;
+        }
+
+       , 26, 0.95);
             border-radius: 12px;
             overflow: hidden;
             font-family: 'JetBrains Mono', monospace;
@@ -219,11 +223,7 @@
         }
 
         .photo-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .photo-container {
+            opacity: .photo-container {
             max-width: 90vw;
             max-height: 90vh;
             position: relative;
@@ -251,31 +251,8 @@
         }
 
         .photo-modal-counter {
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: rgba(255,255,255,0.3);
-            letter-spacing: 0.2em;
-        }
-
-        .photo-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: rgba(255,255,255,0.4);
-            transition: all 0.3s ease;
+;
+            top:0.3s ease;
             z-index: 103;
         }
 
@@ -427,6 +404,49 @@
         .social-link:hover::after {
             width: 100%;
         }
+
+        /* 关于我板块 */
+        .about-portrait {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            aspect-ratio: 3/4;
+            max-height: 520px;
+        }
+
+        .about-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .about-portrait:hover img {
+            transform: scale(1.04);
+        }
+
+        .about-portrait::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(212, 163, 115, 0.2);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .about-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+        }
+
+        .about-tag:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="font-serif text-ink antialiased selection:bg-clay selection:text-paper">
@@ -485,6 +505,7 @@
                 <a href="#projects" class="text-ink/80 hover:text-clay transition-colors relative group py-1 drop-shadow-sm">项目</a>
                 <a href="#essays" class="text-ink/80 hover:text-clay transition-colors relative group py-1 drop-shadow-sm">随笔</a>
                 <a href="#darkroom" class="text-ink/80 hover:text-clay transition-colors relative group py-1 drop-shadow-sm">生活</a>
+                <a href="#about" class="text-ink/80 hover:text-clay transition-colors relative group py-1 drop-shadow-sm">关于</a>
             </div>
         </div>
     </nav>
@@ -645,7 +666,7 @@
 
             <div class="max-w-5xl mx-auto w-full relative z-10">
                 <div class="space-y-4 mb-20 opacity-0" id="essay-header">
-                    <p class="text-clay font-sans text-sm uppercase tracking-[0.2em] font-medium">随笔 Essays</p>
+                    <p class="text-clay font-sans text-sm uppercase tracking-[0.2em] text-clay font-medium">随笔 Essays</p>
                     <h2 class="font-serif text-3xl md:text-5xl font-light text-paper/90">思考、投资与日常</h2>
                     <p class="font-serif text-lg text-paper/50 italic mt-4">"记录那些无法被代码量化的瞬间"</p>
                 </div>
@@ -726,6 +747,7 @@
             </div>
         </section>
 
+        <!-- Darkroom -->
         <section id="darkroom" class="min-h-screen px-6 md:px-20 py-32 bg-paper relative overflow-hidden">
             <div class="film-grain"></div>
 
@@ -737,27 +759,8 @@
                     <div class="w-24 h-px bg-clay/40 mx-auto mt-6"></div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 opacity-0" id="darkroom-gallery">
-                    <div class="col-span-1 row-span-2 photo-grid-item" onclick="openPhoto('portrait')">
-                        <img src="https://image.58sb.cn/file/img/XmFzPUis.png" alt="王致肖像" loading="eager" decoding="async" class="photo-grid-img" style="min-height:100%;">
-                        <div class="skeleton"></div>
-                        <div class="photo-overlay">
-                            <div class="photo-caption">
-                                <h3 class="font-serif text-lg mb-1">数字花园的主人</h3>
-                                <p class="text-sm opacity-80">在代码与诗意之间寻找平衡的探索者</p>
-                            </div>
-                        </div>
-                        <div class="photo-zoom-hint">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                <line x1="11" y1="8" x2="11" y2="14"></line>
-                                <line x1="8" y1="11" x2="14" y2="11"></line>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="col-span-1 md:col-span-2 photo-grid-item" onclick="openPhoto('tianjin')">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 opacity-0" id="darkroom-gallery">
+                    <div class="col-span-1 row-span-2 photo-grid-item" onclick="openPhoto('tianjin')">
                         <img src="https://image.58sb.cn/file/img/FKZVw87M.jpg" alt="天津夜景" loading="lazy" decoding="async" class="photo-grid-img" style="min-height:100%;">
                         <div class="skeleton"></div>
                         <div class="photo-overlay">
@@ -776,13 +779,7 @@
                         </div>
                     </div>
 
-                    <div class="col-span-1 hidden md:flex flex-col justify-center items-center bg-ink/5 rounded-xl p-6 text-center">
-                        <div class="w-12 h-px bg-clay/40 mb-4"></div>
-                        <p class="font-serif text-ink/60 text-sm leading-relaxed italic">"中国民航大学<br>物联网工程专业<br>正在跨考知识产权硕士<br>技术保护创新，法律守护创新"</p>
-                        <div class="w-12 h-px bg-clay/40 mt-4"></div>
-                    </div>
-
-                    <div class="col-span-2 photo-grid-item" onclick="openPhoto('lijiang')">
+                    <div class="col-span-1 md:col-span-2 photo-grid-item" onclick="openPhoto('lijiang')">
                         <img src="https://image.58sb.cn/file/img/hYTA2oJh.jpg" alt="丽江玉龙雪山" loading="lazy" decoding="async" class="photo-grid-img" style="min-height:100%;">
                         <div class="skeleton"></div>
                         <div class="photo-overlay">
@@ -799,12 +796,6 @@
                                 <line x1="8" y1="11" x2="14" y2="11"></line>
                             </svg>
                         </div>
-                    </div>
-
-                    <div class="col-span-2 md:hidden flex flex-col justify-center items-center bg-ink/5 rounded-xl p-6 text-center mt-2">
-                        <div class="w-12 h-px bg-clay/40 mb-4"></div>
-                        <p class="font-serif text-ink/60 text-sm leading-relaxed italic">"中国民航大学物联网工程专业<br>正在跨考知识产权硕士，技术保护创新，法律守护创新"</p>
-                        <div class="w-12 h-px bg-clay/40 mt-4"></div>
                     </div>
                 </div>
 
@@ -831,6 +822,63 @@
                             <p class="font-serif text-ink/60 mt-3 leading-relaxed">白天在法律条文间穿梭，夜晚在代码世界中探索。这个数字花园记录的不只是项目和随笔，更是一个人在交叉路口的思考轨迹。感谢你来。</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="px-6 md:px-20 py-32 bg-paper relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent"></div>
+            <div class="absolute -top-32 -right-32 w-96 h-96 bg-clay/8 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-digital/6 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
+
+                    <!-- 左侧：肖像照 -->
+                    <div class="md:col-span-4 opacity-0 translate-y-8" id="about-photo">
+                        <div class="about-portrait shadow-2xl">
+                            <img src="https://image.58sb.cn/file/img/XmFzPUis.png" alt="王致" loading="eager" decoding="async" class="photo-grid-img loaded">
+                        </div>
+                    </div>
+
+                    <!-- 右侧：文字 -->
+                    <div class="md:col-span-8 space-y-8 opacity-0 translate-y-8" id="about-text">
+                        <div class="space-y-4">
+                            <p class="text-clay font-sans text-sm uppercase tracking-[0.2em] font-medium">关于我 About</p>
+                            <h2 class="font-serif text-3xl md:text-4xl font-light text-ink/90 leading-snug">在物联网的土壤里<br>种一棵知产的树</h2>
+                        </div>
+
+                        <div class="space-y-5 font-serif text-ink/70 leading-relaxed text-base">
+                            <p>
+                                我是中国民航大学电子信息与自动化学院物联网工程专业的学生，23级团总支副书记。做过传感器数据采集的嵌入式项目，写过基于链表的照片管理软件，也在小程序里搭过词汇记忆引擎。
+                            </p>
+                            <p>
+                                一路走来，我发现技术人最常遇到的困境不是"写不出代码"，而是"保护不了自己的代码"。于是决定跨考知识产权硕士——<strong class="text-ink/90">技术促进创新，法律守护创新</strong>。多段实习和项目经历让我确信，懂技术的知产人才是这个领域最稀缺的物种。
+                            </p>
+                            <p>
+                                这个数字花园是我的实验田：项目是根，随笔是枝，生活是叶。欢迎你在这里停留片刻。
+                            </p>
+                        </div>
+
+                        <!-- 标签 -->
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <span class="about-tag bg-digital/10 text-digital border border-digital/20">物联网工程</span>
+                            <span class="about-tag bg-clay/10 text-clay border border-clay/20">知识产权</span>
+                            <span class="about-tag bg-ink/5 text-ink/60 border border-ink/10">团总支副书记</span>
+                            <span class="about-tag bg-ink/5 text-ink/60 border border-ink/10">专利代理师备考</span>
+                            <span class="about-tag bg-digital/10 text-digital border border-digital/20">TypeScript</span>
+                            <span class="about-tag bg-clay/10 text-clay border border-clay/20">C++ / Qt</span>
+                        </div>
+
+                        <!-- 分割线 + 引用 -->
+                        <div class="pt-6 border-t border-ink/10">
+                            <p class="font-serif text-ink/40 italic text-sm leading-relaxed">
+                                "从传感器的信号到法律的条文，从链表的指针到权利的边界——<意识到代码与法律br>我相信最好的创新，诞生在技术与规则的交汇处。"
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -865,7 +913,7 @@
                     <p class="text-xl leading-relaxed mb-6 text-ink/80">昨日以1.720卖出1000股，日内获利9元。这看似微不足道的数字，却是我对"确定性"的一次试探。</p>
                     <p class="mb-4">在备考知产的间隙，我设置了2.391的买入点，基于对通信板块政策面的判断。但更重要的是，这次交易让我理解了仓位管理的心理学——当你同时面对代码的确定性和市场的不确定性时，如何保持清醒？</p>
                     <p class="mb-4">网格策略的本质不是预测，而是纪律。就像写代码时的单元测试，每一笔交易都是对市场假设的验证。我设置了±2%的网格间距，这意味着我接受了"无法预测方向，但可以管理波动"的前提。</p>
-                    <p class="mb-4">159695是嘉实中证全指通信设备ETF，重仓股包括中兴、烽火等。选择它而非个股，是因为在备考期间我无法深入研究单个公司的财报，但整个通信行业的政策趋势是明确的——5G建设、东数西算、新基建。</p>
+                    <p class="mb-4">159695是嘉实中证全指通信设备ETF，重仓股包括中兴、烽火等。选择它而非个股，是因为在备考期间我无法深入研究单个公司的财报，但整个通信行业的政策趋势是明确宾浩斯遗忘的——5G建设、东数西算、新基建。</p>
                     <p class="italic text-ink/60 border-l-4 border-clay/30 pl-4 my-8">"投资中最难的不是技术分析，而是在持仓时保持内心的平静，就像在Debug时保持耐心一样。"</p>
                     <p class="mb-4">这次日内T+0的9元盈利，扣除手续费后实际盈利约6元。钱很少，但我验证了交易系统的可行性：基于微信提醒+手工下单的半自动网格，在图书馆复习的间隙也能操作。</p>
                     <p>下一步考虑接入自动化交易API，但前提是先通过专利代理师考试。毕竟，知产才是未来的主业，投资只是现金管理工具。</p>
@@ -877,7 +925,7 @@
                 date: "2026.03.25",
                 category: "技术随想",
                 content: `
-                    <p class="text-xl leading-relaxed mb-6 text-ink/80">写TimeFlow的专利交底书时，我意识到代码与法律文本之间存在一道翻译的鸿沟。编译器理解指针操作，但审查员需要理解"技术效果"。</p>
+                    <p class="text-xl leading-relaxed mb-6 text-ink/80">写TimeFlow的专利交底书时，我文本之间存在一道效果"。</p>
                     <p class="mb-4">我开始理解为什么知产律师需要技术背景——这不是简单的文书工作，而是思维方式的转译。就像将C++代码解释给只读伪代码的人听，你需要保留逻辑的本质，同时改变表述的形式。</p>
                     <p class="mb-4">TimeFlow的核心创新是"基于双向链表的时间轴非线性管理"，这在代码里只是一段简单的结构体定义：</p>
                     <pre class="bg-ink/5 p-4 rounded-lg my-6 text-sm font-mono overflow-x-auto"><code>struct PhotoNode {
@@ -901,29 +949,7 @@
                     <p class="text-xl leading-relaxed mb-6 text-ink/80">今天在复习民事法律行为效力时，突然联想到TypeScript的类型系统。有效/无效/效力待定的三分法，像极了类型检查中的编译期错误、运行时异常与未定义行为。</p>
                     <p class="mb-4">这种跨学科的顿悟让我确信，从物联网工程到知识产权，再到技术开发，这三者的交汇点正是"系统化的规则设计"。法律是社会的协议，代码是机器的协议，而商业是两者的连接层。</p>
                     <p class="mb-4">举个例子：民法中的"意思表示真实"对应代码中的"变量声明与实际赋值一致"；合同法中的"显失公平"类似于算法中的"时间复杂度劣化"。当我在《民法典》第147条看到"基于重大误解实施的民事法律行为，行为人有权请求撤销"时，我想到的是Git的revert操作——允许你撤销错误的commit，但会留下历史记录。</p>
-                    <p class="mb-4">备考方法也在向我的工程思维靠拢。我用Anki制作了300张卡片，基于艾宾浩斯遗忘曲线安排复习。就像优化数据库查询一样，我在优化大脑的内存访问效率。</p>
-                    <div class="bg-clay/5 p-6 rounded-xl my-8 border-l-4 border-clay/30">
-                        <p class="italic text-ink/70 mb-2">"图书馆三楼，下午五点半。夕阳从西侧窗户照进来，刚好打在《知识产权法教程》的第247页。我抬头看了一眼窗外的梧桐树，突然觉得跨考这个决定，就像当年决定写TimeFlow一样，都是在不确定中寻找确定性的尝试。"</p>
-                        <p class="text-sm text-ink/40 text-right">—— 写于2026年3月20日</p>
-                    </div>
-                    <p class="mb-4">目前进度：民法总论完成70%，计划下周开始知识产权法。同时保持每天2小时的代码时间，维护Lexiscape的开发。时间分配像CPU调度一样，需要优先级队列和防饿死机制。</p>
-                    <p>目标院校是中南财经政法大学，知产专业硕士。距离考试还有280天，道阻且长，行则将至。</p>
-                `,
-                color: "clay"
-            }
-        };
-
-        const photoKeys = ['portrait', 'tianjin', 'lijiang'];
-        const photos = {
-            portrait: {
-                src: "https://image.58sb.cn/file/img/XmFzPUis.png",
-                title: "数字花园的主人",
-                description: "在代码与诗意之间，我选择两者兼得。白天研究知识产权法，晚上探索算法与架构，周末用摄影记录生活的温度。"
-            },
-            tianjin: {
-                src: "https://image.58sb.cn/file/img/FKZVw87M.jpg",
-                title: "海河畔的星夜",
-                description: "家乡的夜，总是带着熟悉而温暖的光。海河的灯光倒映在水中，像极了代码中流动的数据。再复杂的问题，分解成小模块后都能找到解决方案。"
+                    <p class="mb-4">备考方法也在向我的工程思维靠拢。我用Anki制作了300张卡片，基于艾曲线安排复习。复杂的问题，分解成小模块后都能找到解决方案。"
             },
             lijiang: {
                 src: "https://image.58sb.cn/file/img/hYTA2oJh.jpg",
@@ -1086,6 +1112,16 @@
             gsap.to('#darkroom-timeline', {
                 scrollTrigger: { trigger: "#darkroom-timeline", start: "top 85%" },
                 opacity: 1, duration: 1, delay: 0.2
+            });
+
+            // 关于我动画
+            gsap.to('#about-photo', {
+                scrollTrigger: { trigger: "#about", start: "top 75%" },
+                opacity: 1, y: 0, duration: 1, ease: "power3.out"
+            });
+            gsap.to('#about-text', {
+                scrollTrigger: { trigger: "#about", start: "top 70%" },
+                opacity: 1, y: 0, duration: 1, delay: 0.2, ease: "power3.out"
             });
         });
 
